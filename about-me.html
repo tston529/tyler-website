@@ -1,0 +1,39 @@
+{{define "aboutMe"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./styles/main_style.css" />
+	<title>Tyler Stoney - About Me</title>
+</head>
+<body onunload='' class="aboutMe fadeOut">
+    <div ><h3 style="text-align: right; right:20px; top:0; display:inline-block; position:absolute; color:white;">Tyler Stoney</h3></div>
+
+<div class="textBlock">
+    <p>
+    This page is still a work in progress.<br>
+    Maybe it's a metaphor for how I'm still "searching for myself", or some fluff like that.<br>
+    </p>
+</div>
+
+{{template "footer" .}}
+    <script>
+        //$("#aboutMe").bind('click', preventDefault);
+        $("#home").click(function (event) {
+            event.preventDefault();
+            $('body').addClass("fadeOut");
+            setTimeout(function () { $("#homeReal")[0].click(); }, 300);
+        });
+
+        $("#work").click(function (event) {
+            event.preventDefault();
+            $('body').addClass("fadeOut");
+            setTimeout(function () { $("#workReal")[0].click(); }, 300);
+        });
+
+        $(function () {
+            $('body').removeClass('fadeOut');
+        });
+    </script>
+</body>
+</html>
+{{end}}

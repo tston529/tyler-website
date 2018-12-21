@@ -1,0 +1,55 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="./styles/main_style.css" />
+<title>Tyler Stoney</title>
+<style>
+#randPhrase {
+    display:none;
+}
+</style>
+</head>
+<body onunload='' class="index fadeOut">
+	<div id="mainContent">	
+		<canvas id="hero" width="1024" height="768" ></canvas>
+
+		<div ><h3 style="text-align: right; right:20px; top:0; display:inline-block; position:absolute; color:white;">Tyler Stoney</h3></div>
+
+
+		<div class="textBox">
+			<div class="heroText"><h2>Programmer,<br>Student,<br><div id="randPhrase">{{.Phrase}}</div></h2></div>
+		</div>
+		
+
+		{{template "footer" .}}
+		<script src="./scripts/index_lines.js"></script>
+		<script>
+
+			$("#aboutMe").click(function (event) {
+				event.preventDefault();
+				$('body').addClass("fadeOut");
+				setTimeout(function () { $("#aboutMeReal")[0].click(); }, 300);			
+			});
+
+			$("#work").click(function (event) {
+				event.preventDefault();
+				$('body').addClass("fadeOut");
+				setTimeout(function () { $("#workReal")[0].click(); }, 300);
+			});
+
+			$(function () {
+				$('body').removeClass('fadeOut');
+			});
+
+			$(document).ready(function () {
+				setTimeout(function () { $("#randPhrase").show(1000) }, 500);;
+			});
+		</script>
+	</div>
+</body>
+</html>
+{{end}}

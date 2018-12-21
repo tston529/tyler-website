@@ -1,0 +1,25 @@
+{{define "footer"}}
+<nav id="nav">
+    <li><a id="home" href="/" {{.HomeNav}}>Home.</a><a id="homeReal" href="/"></a></li>
+    <li><a id="aboutMe" href="/about-me" {{.AboutMeNav}} >About Me.</a><a id="aboutMeReal" href="/about-me"></a></li>
+    <li><a id="work" href="/work" {{.WorkNav}}>My Work.</a><a id="workReal" href="/work"></a></li>
+</nav>
+
+<table class="contact">
+    <tr>
+        <td>
+            <a href="https://www.linkedin.com/in/tyler-stoney-ab717414b/">
+                <img src="./images/LinkedIn.png" />
+            </a>
+        </td>
+        <td>
+            <a href="mailto:tston529@live.kutztown.edu">
+                <img src="./images/EmailMe.png">
+            </a>
+        </td>
+    </tr>
+</table>
+<footer>&copy; Tyler Stoney 2018 - {{.Year}}</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+{{end}}
