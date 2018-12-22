@@ -10,7 +10,7 @@ import (
 
 var phrases = []string{
 	"Level 8 Warlock.",
-	"World's Best Frycook.*</h2><p>*Source Needed</p><h2>",
+	"World's Best Frycook.*</h2><div style='font-size: .5em;'>*Source Needed</div><h2>",
 	"Bob Ross Fan.",
 	"Instant Ramen Connoisseur.",
 	"Eclectic Musician.",

@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Raleway:200|Montserrat|Aleo|Ubuntu:700" rel="stylesheet">
     <link rel="stylesheet" href="./styles/main_style.css" />
-    <title>Tyler Stoney - About Me</title>
+    <title>Tyler Stoney - Work I've Done</title>
 </head>
 <body onunload='' class="work fadeOut">
     <div ><h3 style="text-align: right; right:20px; top:0; display:inline-block; position:absolute; color:white;">Tyler Stoney</h3></div>
@@ -13,11 +14,11 @@
         <div class="job">
             <h1>This Website</h1>
             <p>I wrote this site from the ground up. No plugins, no frameworks,
-                (not counting liberal amounts of JQuery, of course!), just good
-                old-fashioned HTML, CSS, and JS.  
+                just good old-fashioned HTML, CSS, and JS (and liberal amounts of
+                JQuery, of course).  
             </p>
             <p>I tried my hand at Go for this site as well; the site's meager
-                backend is powered by Go, and I couldn't be happier that I'm
+                backend is powered by it, and I couldn't be happier that I'm
                 not using PHP! :)
             </p>
             <p>
@@ -94,8 +95,6 @@
         })
 
         $('#next').click(function(){
-            $(".textBlock").stop();
-            var currStory = 0;
             var found = 0;
             $(".textBlock").each(function(){
                 if (found == 1) {
@@ -108,13 +107,10 @@
                     $(this).hide("fast");
                     found++;
                 }
-                currStory++;
             })
         })
 
         $('#previous').click(function () {
-            $(".textBlock").stop();
-            var currStory = 0;
             var found = 0;
             $($(".textBlock").get().reverse()).each(function () {
                 if (found == 1) {
@@ -127,7 +123,6 @@
                     $(this).hide("fast");
                     found++;
                 }
-                currStory++;
             })
         })
 
