@@ -38,13 +38,11 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	}
 }
 
-func main() {
+func main(){
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("scripts"))))
-
 	http.HandleFunc("/", Index)
-
 	for k, v := range dirTree {
 		http.HandleFunc("/"+k, v)
 	}
