@@ -39,11 +39,10 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 }
 
 func main() {
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("/home/tstone/go/src/github.com/tston529/website/images"))))
-	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("/home/tstone/go/src/github.com/tston529/website/styles"))))
-	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("/home/tstone/go/src/github.com/tston529/website/scripts"))))
-
 	http.HandleFunc("/", Index)
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
+	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles"))))
+	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("scripts"))))
 
 	for k, v := range dirTree {
 		http.HandleFunc("/"+k, v)
