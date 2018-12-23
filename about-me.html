@@ -7,16 +7,48 @@
 	<title>Tyler Stoney - About Me</title>
 </head>
 <body onunload='' class="aboutMe fadeOut">
-    <div ><h3 style="text-align: right; right:20px; top:0; display:inline-block; position:absolute; color:white;">Tyler Stoney</h3></div>
 
-<div class="textBlock">
-    <p>
-    This page is still a work in progress.<br>
-    Maybe it's a metaphor for how I'm still "searching for myself", or some fluff like that.<br>
-    </p>
+<div class="outerDiv" style="height: 100%;">
+    <div class="textBlock current">
+        <div class="job">
+            <div class="scrollable">
+                <p>
+                I am a 24 year-old student currently pursuing a Master's degree
+                in CS/Software Engineering at Kutztown University of Pennsylvania.
+                </p>
+                <p>
+                I am still looking for my niche when it comes to a speciality,
+                and though the majority of my work has been web development, I am
+                not opposed to branching out to other fields.
+                </p>
+                <p>
+                When I'm not programming for work or school, you can catch me
+                starting (and subsequently not finishing) side projects such as
+                this website.
+                </p>
+                <p>
+                I play the guitar, but my true musical prowess shines with a more
+                "hands-on" instrument, if you will excuse the pun.<br>
+                <a href="https://www.youtube.com/watch?v=i1c04Qxx9Jk"><u>(Link to the most popular video)</u></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="textBlock">
+        <div class="job">
+            <p>
+            This page is still a work in progress.<br>
+            Maybe it's a metaphor for how I'm still "searching for myself", or some fluff like that.<br>
+            </p>
+        </div>
+    </div>
+
 </div>
+    <button id="next" style="position: absolute; right: 25%; bottom: 50%;"><img style="height: 75px;" src="./images/next_arrow.png"/></button>
+    <button id="previous" style="position: absolute; left: 9%; bottom: 50%;"><img style="height: 75px; -webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/next_arrow.png"/></button>
 
 {{template "footer" .}}
+    <script src="/scripts/carousel.js"></script>
     <script>
         //$("#aboutMe").bind('click', preventDefault);
         $("#home").click(function (event) {

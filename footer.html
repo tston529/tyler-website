@@ -6,11 +6,20 @@
         <span></span>
         <span></span>
 
-        <ul id="mobileNav" class="mobile">
+        <ul id="mobileNav" class="mobile" style="border: 1px solid yellow;">
             <li>&nbsp;</li>
             <li><a id="home" href="/">Home.</a><a id="homeReal" href="/"></a></li>
             <li><a id="aboutMe" href="/about-me">About Me.</a><a id="aboutMeReal" href="/about-me"></a></li>
             <li><a id="work" href="/work">My Work.</a><a id="workReal" href="/work"></a></li>
+            <li><div id="mobileContact" class="contact">
+                <a href="https://www.linkedin.com/in/tyler-stoney-ab717414b/">
+                    <img src="./images/LinkedIn.png" />
+                </a>
+                <a href="mailto:tston529@live.kutztown.edu">
+                    <img src="./images/EmailMe.png">
+                </a>
+            </div></li>
+            <div class="footer">&copy; Tyler Stoney 2018 - {{.Year}}</div>
             <div id="wave"></div>
         </ul>
 
@@ -23,7 +32,7 @@
     <li><a id="work" href="/work" {{.WorkNav}}>My Work.</a><a id="workReal" href="/work"></a></li>
 </nav>
 
-<table class="contact">
+<table class="desktop contact">
     <tr>
         <td>
             <a href="https://www.linkedin.com/in/tyler-stoney-ab717414b/">
@@ -37,7 +46,14 @@
         </td>
     </tr>
 </table>
-<footer>&copy; Tyler Stoney 2018 - {{.Year}}</footer>
+<footer class="desktop">&copy; Tyler Stoney 2018 - {{.Year}}</footer>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+<script>
+    var userAgent = navigator.userAgent.toLowerCase(); 
+    if(userAgent .indexOf('chrome')  > -1){
+        $("#mobileContact").addClass("chromeContact");
+        $(".job").addClass("chrome");
+    }
+</script>
 {{end}}

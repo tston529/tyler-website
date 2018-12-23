@@ -7,77 +7,95 @@
     <title>Tyler Stoney - Work I've Done</title>
 </head>
 <body onunload='' class="work fadeOut">
-    <div ><h3 style="text-align: right; right:20px; top:0; display:inline-block; position:absolute; color:white;">Tyler Stoney</h3></div>
 
 <div class="outerDiv" style="height: 100%;">
     <div class="textBlock current">
         <div class="job">
             <h1>This Website</h1>
-            <p>I wrote this site from the ground up. No plugins, no frameworks,
-                just good old-fashioned HTML, CSS, and JS (and liberal amounts of
-                JQuery, of course).  
-            </p>
-            <p>I tried my hand at Go for this site as well; the site's meager
-                backend is powered by it, and I couldn't be happier that I'm
-                not using PHP! :)
-            </p>
-            <p>
-                Last, I am not a particularly creative fellow.<br>
-                The layout and feel of this site was <i>HEAVILY</i> inspired
-                by <a style="text-decoration: underline;" href="https://elje-group.com/en/home.html">The Elje Group's homepage.</a>
-            </p>
             <h4>December 2018</h4>
+            <div class="scrollable">
+                <p>I wrote this site from the ground up. No plugins, no frameworks,
+                    just good old-fashioned HTML, CSS, and JS (and liberal amounts of
+                    JQuery, of course).  
+                </p>
+                <p>This site's meager backend is powered by Go, and I couldn't be happier that I'm
+                    not using PHP! :)
+                </p>
+                <p>
+                    I am not a particularly creative fellow.<br>
+                    The layout and feel of this site was <i>HEAVILY</i> inspired
+                    by <a style="text-decoration: underline;" href="https://elje-group.com/en/home.html">The Elje Group's homepage.</a>
+                </p>
+            </div>
         </div>
     </div>
     <div class="textBlock" >
         <div class="job">
             <h1>Graduate Assistantship</h1>
-            <p>For ~20 hours a week, I provide assistance to any undergrads
-                (and some graduate students!) who need a hand with whatever their
-                current programming assignment is.</p>
-            <p>On the side, I work on projects for the department.<br>
-                I completely overhauled an existing website which provides
-                access to department heads to send email blasts to students and
-                alumni based on the site's form's search criteria.<br><br>
-                Most recently, I was tasked with laying down the foundation for
-                creation of an AI which can play Starcraft.
-            </p>
             <h4>January 2018 - Present</h4>
+            <div class="scrollable">
+                <p>For ~20 hours a week, I provide assistance to any undergrads
+                    (and some graduate students!) who need a hand with whatever their
+                    current programming assignment is.</p>
+                <p>On the side, I work on projects for the department.<br>
+                    I completely overhauled an existing website which provides
+                    access to department heads to send email blasts to students and
+                    alumni based on the site's form's search criteria.<br><br>
+                    Most recently, I was tasked with laying down the foundation for
+                    creation of an AI which can play Starcraft.
+                </p>
+            </div>
         </div>
     </div>
     <div class="textBlock">
         <div class="job">
             <h1>Data Analyst (Internship)</h1>
-            <p>For the Fall 2018 semester, I was tasked by the Kutztown University
-                Foundation to analyze donor data and run predictive analyses on the
-                data sets to create lists of potential high donors from a list of
-                people affiliated with the university.<br>
-                Most of the work went into scripting methods of cleaning and extracting
-                'better' data from the data sets; this was done with Python.<br>
-                I used Weka to do the actual analysis, and put the predictions back
-                into another Python script I wrote to rank the constituents and form
-                a list based on the model's confidence and how highly the constituent was ranked.
-            </p>
             <h4>September 2018 - November 2018</h4>
+            <div class="scrollable">
+                <p>For the Fall 2018 semester, I was tasked by the Kutztown University
+                    Foundation to analyze donor data and run predictive analyses on the
+                    data sets to create lists of potential high donors from a list of
+                    people affiliated with the university.<br>
+                    Most of the work went into scripting methods of cleaning and extracting
+                    'better' data from the data sets; this was done with Python.<br>
+                    I used Weka to do the actual analysis, and put the predictions back
+                    into another Python script I wrote to rank the constituents and form
+                    a list based on the model's confidence and how highly the constituent was ranked.
+                </p>
+            </div>
         </div>
     </div>
-    <button id="next" style="position: absolute; right: 25%; bottom: 50%;"><img style="height: 75px;" src="./images/next_arrow.png"/></button>
-    <button id="previous" style="position: absolute; left: 9%; bottom: 50%;"><img style="height: 75px; -webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/next_arrow.png"/></button>
+
+    <div class="textBlock">
+        <div class="job">
+            <h1>Student Log Book</h1>
+            <h4>October 2018</h4>
+            <div class="scrollable">
+                <p>
+                    As a Graduate Assistant, part of our job is tracking
+                    students who come in the office: name, time in, time out,
+                    reason for visit, class, professor, etc. We formerly had
+                    an Excel spreadsheet and had to log students manually.
+                </p>
+                <p>This web app I wrote expedites the logging of students
+                    by keeping track of as much info as possible, and storing
+                    the info in a database with a single click. Everything is
+                    called via AJAX, for max-user-friendlyness.
+                </p>
+                <p>Tools used: HTML, PHP, JS/JQuery, Materialize CSS </p>
+                <a href="https://github.com/tston529/ga-log"><u>Link to its Github page</u></a>
+            </div>
+        </div>
+    </div>
 </div>
+    <button id="next"><img style="height: 75px;" src="./images/next_arrow.png"/></button>
+    <button id="previous"><img style="height: 75px; -webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/next_arrow.png"/></button>
             
 
 {{template "footer" .}}
+    <script src="/scripts/carousel.js"></script>
+
     <script>
-        var numStories=0;
-        $(document).ready(function (){
-            $(".textBlock").each(function(){
-                if(numStories > 0) {
-                    $(this).hide();
-                }
-                $(this).attr('id', numStories);
-                numStories++;
-            });
-        })
         $("#home").click(function (event) {
             event.preventDefault();
             $('body').addClass("fadeOut");
@@ -92,38 +110,6 @@
 
         $("#work").click(function (event) {
             event.preventDefault();
-        })
-
-        $('#next').click(function(){
-            var found = 0;
-            $(".textBlock").each(function(){
-                if (found == 1) {
-                    found++;
-                    $(this).addClass("current");
-                    $(this).show("fast");
-                }
-                if (found == 0 && ($(this).attr('id') < numStories-1) && $(this).attr('class') == "textBlock current") {
-                    $(this).removeClass("current");
-                    $(this).hide("fast");
-                    found++;
-                }
-            })
-        })
-
-        $('#previous').click(function () {
-            var found = 0;
-            $($(".textBlock").get().reverse()).each(function () {
-                if (found == 1) {
-                    found++;
-                    $(this).addClass("current");
-                    $(this).show("fast");
-                }
-                if (found == 0 && ($(this).attr('id') > 0) && $(this).attr('class') == "textBlock current") {
-                    $(this).removeClass("current");
-                    $(this).hide("fast");
-                    found++;
-                }
-            })
         })
 
         $(function () {
