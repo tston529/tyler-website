@@ -9,12 +9,12 @@ import (
 )
 
 var phrases = []string{
-	"Level 8 Warlock.",
+	"Level 10 Warlock.",
 	"World's Best Frycook.*</h2><div style='font-size: .5em;'>*Source Needed</div><h2>",
-	"Bob Ross Fan.",
+	"Bob Ross Junkie.",
 	"Instant Ramen Connoisseur.",
 	"Eclectic Musician.",
-	"Casual Gamer.",
+	"Casual PC Gamer.",
 }
 
 //Index parses and serves the index page
