@@ -21,6 +21,7 @@ var phrases = []string{
 func Index(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()  // find the time right now
 	iVars := PageVars{ //store the date and time in a struct
+		PageName:	"Tyler Stoney",
 		Year:       now.Format("02-01-2006")[6:],
 		HomeNav:    template.HTMLAttr("class='selected'"),
 		AboutMeNav: "",
@@ -28,7 +29,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		Phrase:     template.HTML(phrases[rand.Intn(len(phrases))]),
 	}
 
-	t, err := template.ParseFiles("index.html", "footer.html") //parse the html file homepage.html
+	t, err := template.ParseFiles("header.html", "index.html", "footer.html") //parse the html file homepage.html
 	if err != nil {                                            // if there is an error
 		log.Print("template parsing error: ", err) // log it
 	}

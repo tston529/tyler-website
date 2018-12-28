@@ -15,21 +15,13 @@ var dirTree = map[string]func(http.ResponseWriter, *http.Request){
 var staticImgs = []string{"EmailMe.png", "LinkedIn.png"}
 
 type PageVars struct {
+	PageName	string
 	Phrase     template.HTML
 	Year       string
 	HomeNav    template.HTMLAttr
 	AboutMeNav template.HTMLAttr
 	WorkNav    template.HTMLAttr
 }
-
-/*func isIn(a string, list []string) bool {
-    for _, b := range list {
-        if b == a {
-            return true
-        }
-    }
-    return false
-}*/
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)

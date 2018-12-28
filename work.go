@@ -11,13 +11,14 @@ import (
 func Work(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	WorkVars := PageVars{
+		PageName:	"Tyler Stoney - Work I've Done",
 		Year:       now.Format("02-01-2006")[6:],
 		HomeNav:    "",
 		AboutMeNav: "",
 		WorkNav:    template.HTMLAttr("class='selected'"),
 	}
 
-	t, err := template.ParseFiles("work.html", "footer.html") //parse the html file
+	t, err := template.ParseFiles("header.html", "work.html", "footer.html") //parse the html file
 	if err != nil {                                           // if there is an error
 		log.Print("template parsing error: ", err) // log it
 	}

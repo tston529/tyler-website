@@ -16,7 +16,9 @@
         width: 100%;
         margin: 0px;
         display: block;
+        overflow: hidden;
     }
+
 	canvas {
 	    padding-left: 0;
 	    padding-right: 0;
@@ -37,7 +39,7 @@
 	}
 
 	.mobile {
-		display: all;
+		display: block;
 	}
 
     .contact {
@@ -45,16 +47,7 @@
         text-align: center;
         position:fixed;
         bottom:5%;
-        left: 98px;
-    }
-
-    .contact tr td img {
-        width: 75px;
-        height: auto;
-    }
-
-    .chromeContact {
-        left:74px;
+        left: 88px;
     }
 
     .textBox {
@@ -72,71 +65,142 @@
 	    display: inline-block;
     }
 
-	#mobileNav {
-		font-family: 'Aleo', serif;
-	    font-size: 2em;
-	    list-style:none;
-	    line-height: 50px;
-	    text-align: right;
-	    padding-right:50px;
-	    position: relative;
+    .contact a img {
+        width: 75px;
+        height:auto;
+    }
 
-	    max-width: 640px;
-	    width:300px;
-	    margin: -100px 0 0 -50px;
-	    padding-top: 125px;
-	    background: #232323;
-	    height:768px;
+    .chromeContact {
+        left:74px;
+    }
 
-		transform-origin: 0% 0%;
-		opacity: 0;
-		transform: translate(-200%, 0);
-		transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-			opacity 0.5s ease-in;
-        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-            opacity 0.5s ease-in;
-        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-            opacity 0.5s ease-in;
-	}
-	#mobileNav li {
-		position:relative;
-		left:-70px;
+    @media only screen and (max-height: 429px) {
+    	#mobileNav {
+			font-family: 'Aleo', serif;
+		    font-size: 2em;
+		    list-style:none;
+		    line-height: 40px;
+		    text-align: right;
+		    padding-right:50px;
+		    position: relative;
+
+		    max-width: 640px;
+		    width:300px;
+		    margin: -100px 0 0 -50px;
+		    padding-top: 90px;
+		    background: #232323;
+		    height:768px;
+
+			transform-origin: 0% 0%;
+			opacity: 0;
+			transform: translate(-200%, 0);
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.5s ease-in;
+	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+		}
+
+		#mobileNav li {
+			position:relative;
+			left:-70px;
+		}
+
+		.contact {
+	        left: 98px;
+	    }
+		.contact a img {
+	        width: 75px;
+	    }
+
+	    .chromeContact {
+	        left:94px;
+	    }
 	}
 
-	#wave {
-	  position: relative;
-	  height: 70px;
-	  /*background: #232323;*/
+    @media only screen and (min-height: 430px) {
+
+    	.contact a img {
+	        width: 90px;
+	        height: auto;
+	    }
+
+	    .chromeContact {
+	        left:84px;
+	    }
+		#mobileNav {
+			font-family: 'Aleo', serif;
+		    font-size: 2em;
+		    list-style:none;
+		    line-height: 50px;
+		    text-align: right;
+		    padding-right:50px;
+		    position: relative;
+
+		    max-width: 640px;
+		    width:300px;
+		    margin: -100px 0 0 -50px;
+		    padding-top: 125px;
+		    background: #232323;
+		    height:768px;
+
+			transform-origin: 0% 0%;
+			opacity: 0;
+			transform: translate(-200%, 0);
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.5s ease-in;
+	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+		}
+
+		#mobileNav li {
+			position:relative;
+			left:-70px;
+		}
+
+		#wave {
+		  position: relative;
+		  height: 70px;
+		  /*background: #232323;*/
+		}
+
+		#wave:before {
+	        content: "";
+	        display: block;
+	        position: absolute;
+	        border-radius: 100% 50%;
+	        width: 240px;
+		    height: 120px;
+		    background-color: #232323;
+		    /*left:-140px;*/
+		    left: -62px;
+		    top: 528px;
+		    z-index: 1;
+		    transition: top 0.5s ease;
+		}
+
+		#wave:after {
+	        content: "";
+	        display: block;
+	        position: absolute;
+	        border-radius: 100% 50%;
+	        width: 300px;
+		    height: 70px;
+		    /*left:-98px;*/
+		    left:50px;
+		    background-color: #232323;
+		    top: 542px;
+		    z-index: 1;
+		}
 	}
 
-	#wave:before {
-        content: "";
-        display: block;
-        position: absolute;
-        border-radius: 100% 50%;
-        width: 240px;
-	    height: 120px;
-	    background-color: #232323;
-	    /*left:-140px;*/
-	    left: -62px;
-	    top: 528px;
-	    z-index: 1;
-	    transition: top 0.5s ease;
-	}
+	
 
-	#wave:after {
-        content: "";
-        display: block;
-        position: absolute;
-        border-radius: 100% 50%;
-        width: 300px;
-	    height: 70px;
-	    /*left:-98px;*/
-	    left:50px;
-	    background-color: #232323;
-	    top: 542px;
-	    z-index: 1;
-	}
+	
+
 
 	/*
 	 * Made by Erik Terwan
@@ -147,6 +211,8 @@
 	 * If you are thinking of using this in
 	 * production code, beware of the browser
 	 * prefixes.
+	 * 
+	 * Modified by Tyler Stoney
 	 */
 
 	#hamburger input:checked ~ ul
@@ -349,17 +415,16 @@
 	    left: 0;
 	    height: 40px;
 	    right: 0;
-	    mask-image: linear-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+	    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))
 
-	/*    background: linear-gradient(to bottom, rgba(251, 251, 251, 0) 0%, rgba(251, 251, 251, 1) 100%);    position: fixed;
-	*/}
+	}
 
 }
 
 /**
  * Desktop
  */
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 641px) {
     html {
         min-height: 100%;
         overflow: hidden;
@@ -381,7 +446,7 @@
 	}
 
 	.desktop {
-		display: all;
+		display: block;
 	}
 
 	nav {
@@ -495,10 +560,9 @@
 	    left: 0;
 	    height: 40px;
 	    right: 0;
-	    mask-image: linear-gradient(linear, left 90%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+	    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))
 
-	/*    background: linear-gradient(to bottom, rgba(251, 251, 251, 0) 0%, rgba(251, 251, 251, 1) 100%);    position: fixed;
-	*/}
+	}
     
 }
 
