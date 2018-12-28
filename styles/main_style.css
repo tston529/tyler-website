@@ -492,12 +492,18 @@
         position: absolute;
         max-height: 80%;
         margin: auto;
-        top:58%;
+        top:52%;
         left:42%;
         padding:15px;
         -ms-transform: translateX(-50%) translateY(-50%);
         -webkit-transform: translate(-50%,-50%);
         transform: translate(-50%,-50%);
+    }
+
+    @media only screen and (max-height: 585px) {
+    	.textBlock {
+    		top:42%;
+    	}
     }
 
     .job h1 {
