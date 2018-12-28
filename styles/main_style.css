@@ -74,133 +74,6 @@
         left:74px;
     }
 
-    @media only screen and (max-height: 429px) {
-    	#mobileNav {
-			font-family: 'Aleo', serif;
-		    font-size: 2em;
-		    list-style:none;
-		    line-height: 40px;
-		    text-align: right;
-		    padding-right:50px;
-		    position: relative;
-
-		    max-width: 640px;
-		    width:300px;
-		    margin: -100px 0 0 -50px;
-		    padding-top: 90px;
-		    background: #232323;
-		    height:768px;
-
-			transform-origin: 0% 0%;
-			opacity: 0;
-			transform: translate(-200%, 0);
-			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-				opacity 0.5s ease-in;
-	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-	            opacity 0.5s ease-in;
-	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-	            opacity 0.5s ease-in;
-		}
-
-		#mobileNav li {
-			position:relative;
-			left:-70px;
-		}
-
-		.contact {
-	        left: 98px;
-	    }
-		.contact a img {
-	        width: 75px;
-	    }
-
-	    .chromeContact {
-	        left:94px;
-	    }
-	}
-
-    @media only screen and (min-height: 430px) {
-
-    	.contact a img {
-	        width: 90px;
-	        height: auto;
-	    }
-
-	    .chromeContact {
-	        left:84px;
-	    }
-		#mobileNav {
-			font-family: 'Aleo', serif;
-		    font-size: 2em;
-		    list-style:none;
-		    line-height: 50px;
-		    text-align: right;
-		    padding-right:50px;
-		    position: relative;
-
-		    max-width: 640px;
-		    width:300px;
-		    margin: -100px 0 0 -50px;
-		    padding-top: 125px;
-		    background: #232323;
-		    height:768px;
-
-			transform-origin: 0% 0%;
-			opacity: 0;
-			transform: translate(-200%, 0);
-			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-				opacity 0.5s ease-in;
-	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-	            opacity 0.5s ease-in;
-	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-	            opacity 0.5s ease-in;
-		}
-
-		#mobileNav li {
-			position:relative;
-			left:-70px;
-		}
-
-		#wave {
-		  position: relative;
-		  height: 70px;
-		  /*background: #232323;*/
-		}
-
-		#wave:before {
-	        content: "";
-	        display: block;
-	        position: absolute;
-	        border-radius: 100% 50%;
-	        width: 240px;
-		    height: 120px;
-		    background-color: #232323;
-		    /*left:-140px;*/
-		    left: -62px;
-		    top: 528px;
-		    z-index: 1;
-		    transition: top 0.5s ease;
-		}
-
-		#wave:after {
-	        content: "";
-	        display: block;
-	        position: absolute;
-	        border-radius: 100% 50%;
-	        width: 300px;
-		    height: 70px;
-		    /*left:-98px;*/
-		    left:50px;
-		    background-color: #232323;
-		    top: 542px;
-		    z-index: 1;
-		}
-	}
-
-	
-
-	
-
 
 	/*
 	 * Made by Erik Terwan
@@ -417,6 +290,182 @@
 	    right: 0;
 	    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))
 
+	}
+
+	@media only screen and (max-height: 359px) {
+    	.textBox {
+    		top: 8%;
+    	}
+    	.textBlock {
+    		top:45%;
+    	}
+    	#mobileNav {
+			font-family: 'Aleo', serif;
+		    font-size: 2em;
+		    list-style:none;
+		    line-height: 35px;
+		    text-align: right;
+		    padding-right:50px;
+		    position: relative;
+
+		    max-width: 640px;
+		    width:300px;
+		    margin: -100px 0 0 -50px;
+		    padding-top: 70px;
+		    background: #232323;
+		    height:768px;
+
+			transform-origin: 0% 0%;
+			opacity: 0;
+			transform: translate(-200%, 0);
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.5s ease-in;
+	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+		}
+
+		#mobileNav li {
+			position:relative;
+			left:-70px;
+		}
+
+		.contact {
+			bottom: 7%;
+	        left: 110px;
+	    }
+		.contact a img {
+	        width: 65px;
+	    }
+
+	    .chromeContact {
+	        left:104px;
+	    }
+	}
+
+    @media only screen and (min-height: 360px) and (max-height: 429px) {
+    	#mobileNav {
+			font-family: 'Aleo', serif;
+		    font-size: 2em;
+		    list-style:none;
+		    line-height: 40px;
+		    text-align: right;
+		    padding-right:50px;
+		    position: relative;
+
+		    max-width: 640px;
+		    width:300px;
+		    margin: -100px 0 0 -50px;
+		    padding-top: 90px;
+		    background: #232323;
+		    height:768px;
+
+			transform-origin: 0% 0%;
+			opacity: 0;
+			transform: translate(-200%, 0);
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.5s ease-in;
+	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+		}
+
+		#mobileNav li {
+			position:relative;
+			left:-70px;
+		}
+
+		.contact {
+			bottom: 6%;
+	        left: 98px;
+	    }
+		.contact a img {
+	        width: 75px;
+	    }
+
+	    .chromeContact {
+	        left:94px;
+	    }
+	}
+
+    @media only screen and (min-height: 430px) {
+
+    	.contact a img {
+	        width: 90px;
+	        height: auto;
+	    }
+
+	    .chromeContact {
+	        left:84px;
+	    }
+		#mobileNav {
+			font-family: 'Aleo', serif;
+		    font-size: 2em;
+		    list-style:none;
+		    line-height: 50px;
+		    text-align: right;
+		    padding-right:50px;
+		    position: relative;
+
+		    max-width: 640px;
+		    width:300px;
+		    margin: -100px 0 0 -50px;
+		    padding-top: 125px;
+		    background: #232323;
+		    height:768px;
+
+			transform-origin: 0% 0%;
+			opacity: 0;
+			transform: translate(-200%, 0);
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+				opacity 0.5s ease-in;
+	        -webkit-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+	        -moz-transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+	            opacity 0.5s ease-in;
+		}
+
+		#mobileNav li {
+			position:relative;
+			left:-70px;
+		}
+
+		#wave {
+		  position: relative;
+		  height: 70px;
+		  /*background: #232323;*/
+		}
+
+		#wave:before {
+	        content: "";
+	        display: block;
+	        position: absolute;
+	        border-radius: 100% 50%;
+	        width: 240px;
+		    height: 120px;
+		    background-color: #232323;
+		    /*left:-140px;*/
+		    left: -62px;
+		    top: 528px;
+		    z-index: 1;
+		    transition: top 0.5s ease;
+		}
+
+		#wave:after {
+	        content: "";
+	        display: block;
+	        position: absolute;
+	        border-radius: 100% 50%;
+	        width: 300px;
+		    height: 70px;
+		    /*left:-98px;*/
+		    left:50px;
+		    background-color: #232323;
+		    top: 542px;
+		    z-index: 1;
+		}
 	}
 
 }
