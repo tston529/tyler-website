@@ -14,6 +14,12 @@ var dirTree = map[string]func(http.ResponseWriter, *http.Request){
 
 var staticImgs = []string{"EmailMe.png", "LinkedIn.png"}
 
+type workData struct {
+        Title   string
+        Date    string
+        Body    template.HTML
+}
+
 type PageVars struct {
 	PageName	string
 	Phrase     template.HTML
@@ -21,6 +27,7 @@ type PageVars struct {
 	HomeNav    template.HTMLAttr
 	AboutMeNav template.HTMLAttr
 	WorkNav    template.HTMLAttr
+	WorkSlides	[]workData
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
