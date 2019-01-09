@@ -7,18 +7,12 @@ import (
 	"net/http"
 	"fmt"
 	"time"
-	_ "google.golang.org/appengine"
+	//_ "google.golang.org/appengine"
 
     _ "github.com/lib/pq"
 )
 
 var db *sql.DB
-
-/*type work struct {
-        title   string
-        date    string
-        body    string
-}*/
 
 //Work services the 'Work I've Done' page,
 func Work(w http.ResponseWriter, r *http.Request) {
@@ -33,7 +27,7 @@ func Work(w http.ResponseWriter, r *http.Request) {
 		WorkSlides:	ws,
 	}
 
-	t, err := template.ParseFiles("header.html", "work.html", "footer.html") //parse the html file
+	t, err := template.New("work").Funcs(fm).ParseFiles("header.html", "work.html", "footer.html") //parse the html file
 	if err != nil {                                           // if there is an error
 		log.Print("template parsing error: ", err) // log it
 	}
@@ -46,12 +40,12 @@ func Work(w http.ResponseWriter, r *http.Request) {
 func queryWork() ([]workData, error) {
 	// Set this in app.yaml when running in production.
     //datastoreName := os.Getenv("POSTGRES_CONNECTION")
-    datastoreName := "user=postgres password=rAsIH0MM1C2ka4sq dbname=postgres sslmode=disable"
-
+    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
     var err error
     db, err = sql.Open("postgres", datastoreName)
+    defer db.Close()
 
-    rows, err := db.Query("SELECT title, date, body FROM work")
+    rows, err := db.Query("SELECT title, work_date, body FROM work")
     if err != nil {
             return nil, fmt.Errorf("Your table doesn't exist, perchance? %v", err)
     }

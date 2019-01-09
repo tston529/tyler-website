@@ -4,15 +4,16 @@
 {{template "header" .}}
 <body class="work fadeOut">
 
+{{$first := 0}}
+{{$one := 1}}
 <div class="outerDiv" style="height: 100%;">
     {{range .WorkSlides}}
-    {{$first := true}}
-        {{if $first}}
+        {{if eq $first 0}}
         <div class="textBlock current">
-        {{$first = false}}
         {{else}}
         <div class="textBlock">
         {{end}}
+        {{$first = add $first $one}}
 
         <div class="job">
             <h1>{{.Title}}</h1>
@@ -24,8 +25,10 @@
     </div>
     {{end}}
 </div>
+    {{if gt $first 1}}
     <button id="next"><img src="./images/next_arrow.png"/></button>
     <button id="previous"><img src="./images/next_arrow.png"/></button>
+    {{end}}
             
 
 {{template "footer" .}}

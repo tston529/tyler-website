@@ -21,6 +21,7 @@ type workData struct {
 }
 
 type PageVars struct {
+	Funcs		template.FuncMap
 	PageName	string
 	Phrase     template.HTML
 	Year       string
@@ -29,6 +30,10 @@ type PageVars struct {
 	WorkNav    template.HTMLAttr
 	WorkSlides	[]workData
 }
+
+var fm = template.FuncMap{"add": func(a, b int) int {
+    return a + b
+}}
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
