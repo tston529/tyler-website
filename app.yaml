@@ -8,11 +8,8 @@ env_variables:
   # Replace username and password if you aren't using the root user.
   CLOUDSQL_USER: postgres
   CLOUDSQL_PASSWORD: rAsIH0MM1C2ka4sq
-  POSTGRES_CONNECTION: "user=postgres password=rAsIH0MM1C2ka4sq dbname=postgres host=/cloudsql/tyler-website:us-east1:tyler-website-db"
+  POSTGRES_CONNECTION: postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable
 
   # If you're testing locally using the Cloud SQL proxy with TCP,
   # instead set this environment variable:
   # POSTGRES_CONNECTION="user=postgres password=rAsIH0MM1C2ka4sq dbname=postgres sslmode=disable"
-
-beta_settings:
-  cloud_sql_instances: tyler-website:us-east1:tyler-website-db

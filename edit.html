@@ -1,0 +1,81 @@
+{{define "edit"}}
+<!DOCTYPE html>
+<html>
+<head>
+{{template "header" .}}
+<style>
+html, body{
+	overflow-y: scroll;
+}
+.error {
+	color:tomato;
+}
+.success {
+	color:seagreen;
+}
+</style>
+</head>
+<body class="edit">
+	<div id="edit mainContent">	
+		<span class={{.Notif.MsgClass}}>{{.Notif.MsgData}}</span><br/>
+		{{range .WorkSlides}}
+		<h2>{{.Title}}</h2>
+		<button onClick="toggleEdit({{.RowId}});return false;">Edit Slide {{.DispOrder}}</button>
+		<div id={{.RowId}} style="display:none;">
+			<form method="POST">
+				<input style="display:none;" name="rowid" value={{.RowId}}>
+
+				<label for="num{{.RowId}}">Display Order:</label><br>
+				<input type="number" id="num{{.RowId}}" name="num" value={{.DispOrder}}><br/>
+
+				<label for="name{{.RowId}}">Slide Title:</label><br>
+				<input type="text" id="name{{.RowId}}" name="name" value={{.Title}}> <!--Name--><br/>
+				
+				<label for="date{{.RowId}}">Date:</label><br>
+				<input type="text" id="date{{.RowId}}" name="date" value={{.Date}}> <!--Date--><br/>
+				
+				<textarea name="body">{{.Body}}</textarea> <!--Body--><br/>
+				<br/>
+
+				<label for="delete{{.RowId}}">Delete?</label>
+				<input id="delete{{.RowId}}" name="delete" value="{{.RowId}}" type="checkbox"><br/>
+
+				<button type='submit'>Submit</button>
+			</form>
+		</div>
+		<hr/>
+		{{end}}
+		<button onClick="toggleEdit('newSlide');return false;">+New Slide</button>
+		<div id="newSlide" style="display:none;">
+			<form method="POST">
+				<input style="display:none;" name="rowid" value="NEW">
+
+				<label for="numNew">Display Order:</label><br>
+				<input type="number" name="num" id="numNew"><br/>
+
+				<label for="nameNew">Slide Title:</label><br>
+				<input type="text" name="name" id="nameNew"> <!--Name--><br/>
+				
+				<label for="dateNew">Date:</label><br>
+				<input type="text" name="date" id="dateNew"> <!--Date--><br/>
+				
+				<textarea name="body"></textarea> <!--Body--><br/>
+				<br/>
+
+				<button type='submit'>Submit</button>
+			</form>
+		</div>
+		<!-- <hr/> -->
+	</div>
+	<script>
+		function toggleEdit(rowId) {
+			var slideDiv = document.getElementById(rowId);
+			if(slideDiv.style.display == "none")
+				slideDiv.style.display = "block";
+			else
+				slideDiv.style.display = "none";
+		}
+	</script>
+</body>
+</html>
+{{end}}

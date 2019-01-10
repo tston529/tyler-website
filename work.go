@@ -7,8 +7,7 @@ import (
 	"net/http"
 	"fmt"
 	"time"
-	//_ "google.golang.org/appengine"
-
+    "os"
     _ "github.com/lib/pq"
 )
 
@@ -37,25 +36,25 @@ func Work(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func queryWork() ([]workData, error) {
+func queryWork() ([]WorkData, error) {
 	// Set this in app.yaml when running in production.
-    //datastoreName := os.Getenv("POSTGRES_CONNECTION")
-    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+    datastoreName := os.Getenv("POSTGRES_CONNECTION")
+    // datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
 
-    rows, err := db.Query("SELECT title, work_date, body FROM work")
+    rows, err := db.Query("SELECT title, work_date, body, disp_order, rowid FROM work ORDER BY disp_order")
     if err != nil {
-            return nil, fmt.Errorf("Your table doesn't exist, perchance? %v", err)
+        return nil, fmt.Errorf("Your table doesn't exist, perchance? %v", err)
     }
     defer rows.Close()
 
-    var work []workData
+    var work []WorkData
     for rows.Next() {
-            var w workData
-            if err := rows.Scan(&w.Title, &w.Date, &w.Body); err != nil {
-                    return nil, fmt.Errorf("Something is funky in one of the rows: %v", err)
+            var w WorkData
+            if err := rows.Scan(&w.Title, &w.Date, &w.Body, &w.DispOrder, &w.RowId); err != nil {
+                return nil, fmt.Errorf("Something is funky in one of the rows: %v", err)
             }
             work = append(work, w)
     }

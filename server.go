@@ -9,15 +9,23 @@ import (
 var dirTree = map[string]func(http.ResponseWriter, *http.Request){
 	"index":    Index,
 	"about-me": AboutMe,
-	"work":     Work,
+    "work":     Work,
+	"edit":     Edit,
 }
 
 var staticImgs = []string{"EmailMe.png", "LinkedIn.png"}
 
-type workData struct {
-        Title   string
-        Date    string
-        Body    template.HTML
+type WorkData struct {
+    Title   string
+    Date    string
+    Body    template.HTML
+    DispOrder int
+    RowId   int
+}
+
+type Notification struct {
+    MsgClass template.HTMLAttr
+    MsgData string
 }
 
 type PageVars struct {
@@ -28,7 +36,8 @@ type PageVars struct {
 	HomeNav    template.HTMLAttr
 	AboutMeNav template.HTMLAttr
 	WorkNav    template.HTMLAttr
-	WorkSlides	[]workData
+	WorkSlides	[]WorkData
+    Notif      Notification
 }
 
 var fm = template.FuncMap{"add": func(a, b int) int {
