@@ -3,6 +3,8 @@ package main
 import (
 	"html/template"
 	"log"
+    "crypto/subtle"
+    "golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
@@ -10,7 +12,7 @@ var dirTree = map[string]func(http.ResponseWriter, *http.Request){
 	"index":    Index,
 	"about-me": AboutMe,
     "work":     Work,
-	"edit":     Edit,
+    "edit":     BasicAuth(Edit, "tston529", "$2a$14$6O3jP0wxR.0rLzZsKQmBSOuIMTLphE9dqVJ7WEQKaHcMjYLEbwcgu", "Please enter your username and password:"),
 }
 
 var staticImgs = []string{"EmailMe.png", "LinkedIn.png"}
@@ -51,11 +53,33 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	}
 }
 
+func BasicAuth(handler http.HandlerFunc, username, pHash, realm string) http.HandlerFunc {
+
+    return func(w http.ResponseWriter, r *http.Request) {
+
+        user, pass, ok := r.BasicAuth()
+
+        pHashErr := bcrypt.CompareHashAndPassword([]byte(pHash), []byte(pass))
+
+        if !ok ||
+            subtle.ConstantTimeCompare([]byte(user), []byte(username)) != 1 ||
+            pHashErr != nil {
+            w.Header().Set("WWW-Authenticate", `Basic realm="`+realm+`"`)
+            w.WriteHeader(401)
+            w.Write([]byte("You shall not pass.\n"))
+            return
+        }
+
+        handler(w, r)
+    }
+}
+
 func main(){
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
 	http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("scripts"))))
-	http.HandleFunc("/", Index)
+    http.HandleFunc("/", Index)
+	// http.HandleFunc("/edit", )
 	for k, v := range dirTree {
 		http.HandleFunc("/"+k, v)
 	}
