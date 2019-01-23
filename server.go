@@ -6,6 +6,10 @@ import (
     "crypto/subtle"
     "golang.org/x/crypto/bcrypt"
 	"net/http"
+    "database/sql"
+    _ "os"
+    "fmt"
+    _ "github.com/lib/pq"
 )
 
 var dirTree = map[string]func(http.ResponseWriter, *http.Request){
@@ -40,6 +44,9 @@ type PageVars struct {
 	WorkNav    template.HTMLAttr
 	WorkSlides	[]WorkData
     Notif      Notification
+    Title      string
+    Table      string
+    TableNames []string
 }
 
 var fm = template.FuncMap{"add": func(a, b int) int {
@@ -88,4 +95,57 @@ func main(){
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatalln(err)
 	}
+}
+
+func querySlides(tableName string) ([]WorkData, error) {
+    // Set this in app.yaml when running in production.
+    //datastoreName := os.Getenv("POSTGRES_CONNECTION")
+    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+    var err error
+    db, err = sql.Open("postgres", datastoreName)
+    defer db.Close()
+
+    rows, err := db.Query("SELECT title, work_date, body, disp_order, rowid FROM " + tableName + " ORDER BY disp_order")
+    if err != nil {
+        return nil, fmt.Errorf("Your table doesn't exist, perchance? %v", err)
+    }
+    defer rows.Close()
+
+    var work []WorkData
+    for rows.Next() {
+        var w WorkData
+        if err := rows.Scan(&w.Title, &w.Date, &w.Body, &w.DispOrder, &w.RowId); err != nil {
+            return nil, fmt.Errorf("Something is funky in one of the rows: %v", err)
+        }
+        work = append(work, w)
+    }
+
+    return work, rows.Err()
+}
+
+func getTables() ([]string, error) {
+    //SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
+   // Set this in app.yaml when running in production.
+    //datastoreName := os.Getenv("POSTGRES_CONNECTION")
+    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+    var err error
+    db, err = sql.Open("postgres", datastoreName)
+    defer db.Close()
+
+    rows, err := db.Query("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'")
+    if err != nil {
+        return nil, fmt.Errorf("Your table doesn't exist, perchance? %v", err)
+    }
+    defer rows.Close()
+
+    var tableNames []string
+    for rows.Next() {
+        var row string
+        if err := rows.Scan(&row); err != nil {
+            return nil, fmt.Errorf("Something is funky in one of the rows: %v", err)
+        }
+        tableNames = append(tableNames, row)
+    }
+
+    return tableNames, rows.Err()
 }

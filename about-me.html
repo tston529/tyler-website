@@ -6,49 +6,31 @@
 </head>
 <body onunload='' class="aboutMe fadeOut">
 
-<div class="outerDiv" style="height: 100%;">
-    <div class="textBlock current">
-        <div class="job">
-            <h1>Brief Bio</h1>
-            <div class="scrollable">
-                <p>
-                I am a 24 year-old student currently pursuing a Master's degree
-                in CS/Software Engineering at Kutztown University of Pennsylvania.
-                </p>
-                <p>
-                I am still looking for my niche,
-                and though the majority of my work has been web development, I am
-                not opposed to branching out to other fields.
-                </p>
-                <p>
-                When I'm not programming for work or school, you can catch me
-                starting (and subsequently not finishing) side projects such as
-                this website.
-                </p>
-                <p>
-                I play the guitar, but my true musical prowess shines with a more
-                "hands-on" instrument, if you will excuse the pun.<br>
-                <a href="https://www.youtube.com/watch?v=i1c04Qxx9Jk"><u>(Link to the most popular video)</u></a>
-                </p>
+    {{$first := 0}}
+    {{$one := 1}}
+    <div class="outerDiv" style="height: 100%;">
+        {{range .WorkSlides}}
+            {{if eq $first 0}}
+            <div class="textBlock current">
+            {{else}}
+            <div class="textBlock">
+            {{end}}
+            {{$first = add $first $one}}
+
+            <div class="job">
+                <h1>{{.Title}}</h1>
+                <h4>{{.Date}}</h4>
+                <div class="scrollable">
+                    {{.Body}}
+                </div>
             </div>
         </div>
+        {{end}}
     </div>
-    <div class="textBlock">
-        <div class="job">
-            <br><br>
-            <h1>That's it, keep moving.</h1>
-            <div class="scrollable">
-                <p>
-                This entire site is still a work in progress.<br>
-                Maybe it's a metaphor for how I'm still "searching for myself", or some fluff like that.
-                </p>
-                <p>Nothing more to see, I'm just padding for time now.</p>
-            </div>
-        </div>
-    </div>
-</div>
+    {{if gt $first 1}}
     <button id="next"><img src="./images/next_arrow.png"/></button>
     <button id="previous"><img src="./images/next_arrow.png"/></button>
+    {{end}}
 
 {{template "footer" .}}
     <script src="/scripts/carousel_min.js"></script>

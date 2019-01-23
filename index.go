@@ -15,7 +15,7 @@ var phrases = []string{
 	"Instant Ramen Connoisseur.",
 	"Eclectic Musician.",
 	"Casual PC Gamer.",
-    "Student of the Sea",
+    "Student of the Sea.",
 }
 
 //Index parses and serves the index page

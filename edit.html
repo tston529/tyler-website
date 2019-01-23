@@ -13,10 +13,25 @@ html, body{
 .success {
 	color:seagreen;
 }
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
 </style>
 </head>
 <body class="edit">
 	<div id="edit mainContent">	
+		{{$Table := .Table}}
+		<h1>Editing Page: {{$Table}}</h1>
+		<h3>Pages:
+			{{range .TableNames}}
+			<a href="/edit?table={{.}}" class="button">{{.}}</a>
+			{{end}}
+		</h3>
 		<span class={{.Notif.MsgClass}}>{{.Notif.MsgData}}</span><br/>
 		{{range .WorkSlides}}
 		<h2>{{.Title}}</h2>
@@ -24,6 +39,7 @@ html, body{
 		<div id={{.RowId}} style="display:none;">
 			<form method="POST">
 				<input style="display:none;" name="rowid" value={{.RowId}}>
+				<input style="display:none;" name="table" value={{$Table}}>
 
 				<label for="num{{.RowId}}">Display Order:</label><br>
 				<input type="number" id="num{{.RowId}}" name="num" value={{.DispOrder}}><br/>
@@ -45,6 +61,8 @@ html, body{
 		</div>
 		<hr/>
 		{{end}}
+		{{$tableNotFound := "Table not found."}}
+		{{if and (ne .Notif.MsgData $tableNotFound) (ne $Table "") }}
 		<button onClick="toggleEdit('newSlide');return false;">+New Slide</button>
 		<div id="newSlide" style="display:none;">
 			<form method="POST">
@@ -65,6 +83,7 @@ html, body{
 				<button type='submit'>Submit</button>
 			</form>
 		</div>
+		{{end}}
 		<!-- <hr/> -->
 	</div>
 	<script>

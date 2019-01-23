@@ -6,7 +6,7 @@ import (
 	"log"
 	"strconv"
 	"net/http"
-	"os"
+	_ "os"
 	_ "github.com/lib/pq"
 )
 
@@ -14,9 +14,11 @@ import (
 //  log in to google cloud, hard-code data, and redeploy
 func Edit(w http.ResponseWriter, r *http.Request) {
 
+    r.ParseForm()
+
 	var PageNot Notification
 
-	if r.Method == "POST"{
+	if r.Method == "POST" {
 
 		if r.FormValue("rowid") == "NEW" {
 			if !createSlide(r) {
@@ -37,11 +39,26 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	ws, _ := queryWork()
+    var ws []WorkData
+    var tableNames []string
+    var tableErr error
+    if r.FormValue("table") != "" {
+        ws, tableErr = querySlides(r.FormValue("table"))
+        if tableErr != nil {
+            PageNot.MsgClass = "error"
+            PageNot.MsgData  = "Table not found."
+        }
+        tableNames, _ = getTables()
+    } else {
+        tableNames, tableErr = getTables()
+        //
+    }
 	EditVars := PageVars{
 		PageName:	"Tyler Stoney - Edit",
 		WorkSlides:	ws,
 		Notif:		PageNot,
+        Table:      r.FormValue("table"),
+        TableNames: tableNames,
 	}
 
 	t, err := template.ParseFiles("header.html", "edit.html") //parse the html file
@@ -55,14 +72,15 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateSlide(r *http.Request) (bool) {
-	datastoreName := os.Getenv("POSTGRES_CONNECTION")
+	// datastoreName := os.Getenv("POSTGRES_CONNECTION")
+    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
     if r.FormValue("delete") != "" {
-    	_, err = db.Exec("DELETE FROM work WHERE rowid = $1", r.FormValue("delete"))    	
+    	_, err = db.Exec("DELETE FROM $1 WHERE rowid = $2", r.FormValue("table"), r.FormValue("delete"))    	
     }
-    _, err = db.Exec("UPDATE work SET title = $1, work_date = $2, body = $3, disp_order = $4 WHERE rowid = $5", r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), r.FormValue("num"), r.FormValue("rowid"))
+    _, err = db.Exec("UPDATE $1 SET title = $2, work_date = $3, body = $4, disp_order = $5 WHERE rowid = $6", r.FormValue("table"), r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), r.FormValue("num"), r.FormValue("rowid"))
     if err != nil {
         return false
     }
@@ -70,14 +88,16 @@ func updateSlide(r *http.Request) (bool) {
 }
 
 func createSlide(r *http.Request) (bool) {
-	datastoreName := os.Getenv("POSTGRES_CONNECTION")
+	// datastoreName := os.Getenv("POSTGRES_CONNECTION")
+    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
     disp_order, _ := strconv.Atoi(r.FormValue("num"))
-    stmt := `INSERT INTO work VALUES ($1, $2, $3, $4)`;
+    stmt := `INSERT INTO ` + r.FormValue("table") + ` VALUES ($1, $2, $3, $4)`;
     _, err = db.Exec(stmt, r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), int16(disp_order))
     if err != nil {
+        log.Print("error creating slide: ", err)
         return false
     }
     return true;
