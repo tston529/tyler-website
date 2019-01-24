@@ -1,4 +1,0 @@
-runtime: go111
-
-env_variables:
-  POSTGRES_CONNECTION: postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable

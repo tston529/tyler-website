@@ -98,9 +98,7 @@ func main(){
 }
 
 func querySlides(tableName string) ([]WorkData, error) {
-    // Set this in app.yaml when running in production.
-    //datastoreName := os.Getenv("POSTGRES_CONNECTION")
-    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+    datastoreName := os.Getenv("POSTGRES_CONNECTION")
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
@@ -124,10 +122,7 @@ func querySlides(tableName string) ([]WorkData, error) {
 }
 
 func getTables() ([]string, error) {
-    //SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
-   // Set this in app.yaml when running in production.
-    //datastoreName := os.Getenv("POSTGRES_CONNECTION")
-    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+    datastoreName := os.Getenv("POSTGRES_CONNECTION")
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()

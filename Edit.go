@@ -72,8 +72,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateSlide(r *http.Request) (bool) {
-	// datastoreName := os.Getenv("POSTGRES_CONNECTION")
-    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+	datastoreName := os.Getenv("POSTGRES_CONNECTION")
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
@@ -88,8 +87,7 @@ func updateSlide(r *http.Request) (bool) {
 }
 
 func createSlide(r *http.Request) (bool) {
-	// datastoreName := os.Getenv("POSTGRES_CONNECTION")
-    datastoreName := "postgres://jhtlhxyr:mOxqh49SFZ5uJi-I6AOSb9Yjdu8UdGne@baasu.db.elephantsql.com:5432/jhtlhxyr?sslmode=disable"
+	datastoreName := os.Getenv("POSTGRES_CONNECTION")
     var err error
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
