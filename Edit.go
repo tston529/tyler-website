@@ -6,7 +6,7 @@ import (
 	"log"
 	"strconv"
 	"net/http"
-	_ "os"
+	"os"
 	_ "github.com/lib/pq"
 )
 
@@ -77,9 +77,12 @@ func updateSlide(r *http.Request) (bool) {
     db, err = sql.Open("postgres", datastoreName)
     defer db.Close()
     if r.FormValue("delete") != "" {
-    	_, err = db.Exec("DELETE FROM $1 WHERE rowid = $2", r.FormValue("table"), r.FormValue("delete"))    	
+        stmt := "DELETE FROM " + r.FormValue("table") + " WHERE rowid = $1"
+    	_, err = db.Exec(stmt, r.FormValue("delete"))    	
+    } else {
+        stmt := "UPDATE " + r.FormValue("table") + " SET title = $1, work_date = $2, body = $3, disp_order = $4 WHERE rowid = $5"
+        _, err = db.Exec(stmt, r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), r.FormValue("num"), r.FormValue("rowid"))
     }
-    _, err = db.Exec("UPDATE $1 SET title = $2, work_date = $3, body = $4, disp_order = $5 WHERE rowid = $6", r.FormValue("table"), r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), r.FormValue("num"), r.FormValue("rowid"))
     if err != nil {
         return false
     }
