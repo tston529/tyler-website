@@ -157,14 +157,21 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.FormValue("file") != "" {
-		file, err := ioutil.ReadFile(r.FormValue("file"))
-		if err != nil {
-			log.Fatal(err)
-			return
+	if r.FormValue("request") != "" {
+		if r.FormValue("file") != "" {
+			file, err := ioutil.ReadFile(r.FormValue("file"))
+			if err != nil {
+				log.Fatal(err)
+				return
+			}
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			w.Write(file)
 		}
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		w.Write(file)
+	} else if r.FormValue("save") != "" {
+		if r.FormValue("openFileName") != "" {
+			ioutil.WriteFile(r.FormValue("openFileName"), []byte(r.FormValue("openFile")), 0644)
+			w.Write([]byte("success"))
+		}
 	}
 
 

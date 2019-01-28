@@ -85,7 +85,7 @@ func BasicAuth(handler http.HandlerFunc, username, pHash, realm string) http.Han
 
 var mux *http.ServeMux
 
-func main(){
+func main() {
     mux = http.NewServeMux()
     mux.Handle("/submit", http.FileServer(http.Dir("./")))
     

@@ -20,6 +20,12 @@ var phrases = []string{
 
 //Index parses and serves the index page
 func Index(w http.ResponseWriter, r *http.Request) {
+
+	if r.URL.Path != "/" || r.URL.Path != "/images/" || r.URL.Path != "/styles/" || r.URL.Path != "/scripts/"{
+        errorHandler(w, r, http.StatusNotFound)
+        return
+	}
+	
 	now := time.Now()  // find the time right now
 	iVars := PageVars{ //store the date and time in a struct
 		PageName:	"Tyler Stoney",

@@ -21,6 +21,12 @@ a.button {
     text-decoration: none;
     color: initial;
 }
+#fileEditor {
+	min-width:500px;
+	width: 80%;
+	min-height:500px;
+	height: 80%;
+}
 </style>
 </head>
 <body class="edit">
@@ -48,8 +54,12 @@ a.button {
 		</div>
 		</td>
 		<td>
-		<textarea id='fileEditor' style='display:none; min-width:500px; width: 80%; min-height:500px; height: 80%;'></textarea>
-
+			<form id='fileEditorForm' style='display: none;'>
+				<div id='submitMessage'></div>
+				<input type='text' name='openFileName' id='openFileName' readonly="readonly" />
+				<textarea name='openFile' id='fileEditor'></textarea>
+				<a id='submitButton' class='button'>Save File</a>
+			</form>
 		{{range .WorkSlides}}
 		<h2>{{.Title}}</h2>
 		<button onClick="toggleEdit({{.RowId}});return false;">Edit Slide {{.DispOrder}}</button>
@@ -107,91 +117,7 @@ a.button {
 	</table>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	    crossorigin="anonymous"></script>
-	<script>
-		function toggleEdit(rowId) {
-			var slideDiv = document.getElementById(rowId);
-			if(slideDiv.style.display == "none")
-				slideDiv.style.display = "block";
-			else
-				slideDiv.style.display = "none";
-		}
-
-		function toggleShowFolder(folderClass) {
-			var folder = $("."+folderClass);
-			var buttonClass = folderClass.toUpperCase();
-			if(folder.css( "display" ) == "none") {
-				folder.css( "display", "block" );
-				$("."+buttonClass).html($("."+buttonClass).html().replace("+", "-"));
-			}
-			else {
-				folder.css( "display", "none" );
-				$("."+buttonClass).html($("."+buttonClass).html().replace("-", "+"));
-			}
-		}
-
-		function organizeFiles() {
-			var $files = $("#files");
-			var names = $files.children().filter("a");
-			$files.html('');
-			var homeDiv = $("<div class='home' style='display:none; margin-left:20px;'></div><br>").append("<br>");
-			$files.append(homeDiv);
-			$(".home").before($("<button class='HOME' onclick='toggleShowFolder(\"home\");'>[+] home</button>"));
-
-			for (let i = 0; i < names.length; i++) {
-				var full_path = $(names[i]).html().split("/");
-				full_path.unshift('home');
-				var fn = $(full_path).get(-1);
-				$(names[i]).html(fn);
-				full_path.pop();
-				var indentation = 0; // Will be used to shift folders/contents
-									 // to make the list look more 'tree-like'
-
-				// Ensures all "folders" are created
-				for (let j = 1; j < full_path.length; j++) {
-					indentation += 40;
-					// Search for subfolder in current folder
-					// Create 'folder' div if not found
-					if ( $("."+full_path.slice(0, j).join('')).find("."+full_path.slice(0, j+1).join('')).length == 0 ) {
-						var newClass = full_path.slice(0, j+1).join('');
-						var newDiv = $("<div class='"+newClass+
-									"' style='display:none; margin-left: "+indentation+"px;'></div>").append("<br>");
-						$("."+full_path.slice(0, j).join('')).append(newDiv);
-						var newButton = $("<br><button class='"+newClass.toUpperCase() +
-											"' onclick='toggleShowFolder(\""+newClass+"\");'>"
-											+ "[+] " + full_path[j] + "</button><br/>");
-						newDiv.before(newButton);
-					}
-				}
-				
-				// Put the file at the beginning of the files list, not after any
-				//  other folders that may have been created in the meantime.
-				var $last_a = $("."+full_path.join('')).children("a").nextUntil("button");
-				if ($last_a.length)
-					$last_a.parent().prepend($(names[i])).prepend("<br>");
-				else
-					$("."+full_path.join('')).append($(names[i])).append("<br>");
-			}
-		}
-
-		$(document).ready(function(){
-			organizeFiles();
-		});
-
-		$(document).ready(function () {
-			$('.file').click(function (e) {
-				e.preventDefault();
-				$.ajax({
-					url: 'submit',
-					type: 'post',
-					data: { ajax: true, file: $(this).attr("href") },
-					success: function (data) {
-						$('#fileEditor').val(data);
-						$('#fileEditor').css('display', 'block');
-					},
-				});
-			});
-		});
-	</script>
+	<script src="./scripts/edit.js"></script>
 </body>
 
 </html>
