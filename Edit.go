@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"io/ioutil"
 	_ "github.com/lib/pq"
 )
 
@@ -54,15 +55,15 @@ func Edit(w http.ResponseWriter, r *http.Request) {
         tableNames, _ = getTables()
     } else {
         tableNames, tableErr = getTables()
-				fileNames = getFiles()
+		fileNames = getFiles()
         //
     }
 	EditVars := PageVars{
 		PageName:	"Tyler Stoney - Edit",
 		WorkSlides:	ws,
 		Notif:		PageNot,
-    Table:      r.FormValue("table"),
-    TableNames: tableNames,
+		Table:      r.FormValue("table"),
+		TableNames: tableNames,
 		FileNames: 	fileNames,
 	}
 
@@ -154,6 +155,16 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 
 	if r.FormValue("ajax") == "" {
 		return
+	}
+
+	if r.FormValue("file") != "" {
+		file, err := ioutil.ReadFile(r.FormValue("file"))
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		w.Write(file)
 	}
 
 
