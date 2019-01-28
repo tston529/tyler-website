@@ -22,24 +22,26 @@ a.button {
     color: initial;
 }
 #fileEditor {
-	min-width:500px;
+	min-width:600px;
 	width: 80%;
-	min-height:500px;
+	min-height:600px;
 	height: 80%;
 }
 </style>
 </head>
 <body class="edit">
 	<table style="height:100%;">
-	<tr>
+	<tr style="height:100%;">
 		<td>
-		<div id="edit mainContent">
+		<div id="edit mainContent" style="position: absolute; top:0%;">
 			{{$Table := .Table}}
+			{{if ne $Table ""}}
 			<h1>Editing Page: {{$Table}}</h1>
+			{{end}}
 
 			<h3>Pages:</h3>
 			{{range .TableNames}}
-				<a href="/submit?table={{.}}" class="button">{{.}}</a>
+				<a href="/edit?table={{.}}" class="button">{{.}}</a>
 			{{end}}
 
 			<span class={{.Notif.MsgClass}}>{{.Notif.MsgData}}</span><br/>
@@ -53,11 +55,11 @@ a.button {
 			</div>
 		</div>
 		</td>
-		<td>
+		<td style="position:relative; left:45%;">
 			<form id='fileEditorForm' style='display: none;'>
-				<div id='submitMessage'></div>
-				<input type='text' name='openFileName' id='openFileName' readonly="readonly" />
-				<textarea name='openFile' id='fileEditor'></textarea>
+				<div id='submitMessage'></div><br/>
+				<input type='text' name='openFileName' id='openFileName' readonly="readonly" /><br />
+				<textarea name='openFile' id='fileEditor'></textarea><br />
 				<a id='submitButton' class='button'>Save File</a>
 			</form>
 		{{range .WorkSlides}}
