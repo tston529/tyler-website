@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 	_ "github.com/lib/pq"
 )
 
@@ -42,6 +44,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
     var ws []WorkData
     var tableNames []string
     var tableErr error
+		var fileNames []string
     if r.FormValue("table") != "" {
         ws, tableErr = querySlides(r.FormValue("table"))
         if tableErr != nil {
@@ -51,14 +54,16 @@ func Edit(w http.ResponseWriter, r *http.Request) {
         tableNames, _ = getTables()
     } else {
         tableNames, tableErr = getTables()
+				fileNames = getFiles()
         //
     }
 	EditVars := PageVars{
 		PageName:	"Tyler Stoney - Edit",
 		WorkSlides:	ws,
 		Notif:		PageNot,
-        Table:      r.FormValue("table"),
-        TableNames: tableNames,
+    Table:      r.FormValue("table"),
+    TableNames: tableNames,
+		FileNames: 	fileNames,
 	}
 
 	t, err := template.ParseFiles("header.html", "edit.html") //parse the html file
@@ -71,6 +76,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Updates data pertaining to a selected slide
 func updateSlide(r *http.Request) (bool) {
 	datastoreName := os.Getenv("POSTGRES_CONNECTION")
     var err error
@@ -78,7 +84,7 @@ func updateSlide(r *http.Request) (bool) {
     defer db.Close()
     if r.FormValue("delete") != "" {
         stmt := "DELETE FROM " + r.FormValue("table") + " WHERE rowid = $1"
-    	_, err = db.Exec(stmt, r.FormValue("delete"))    	
+    	_, err = db.Exec(stmt, r.FormValue("delete"))
     } else {
         stmt := "UPDATE " + r.FormValue("table") + " SET title = $1, work_date = $2, body = $3, disp_order = $4 WHERE rowid = $5"
         _, err = db.Exec(stmt, r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), r.FormValue("num"), r.FormValue("rowid"))
@@ -89,6 +95,7 @@ func updateSlide(r *http.Request) (bool) {
     return true;
 }
 
+// Allows me to create a new slide on the requested page
 func createSlide(r *http.Request) (bool) {
 	datastoreName := os.Getenv("POSTGRES_CONNECTION")
     var err error
@@ -102,4 +109,52 @@ func createSlide(r *http.Request) (bool) {
         return false
     }
     return true;
+}
+
+// Will retrieve a list of editable files
+func getFiles() (fileNames []string) {
+	var fileExtensions = []string {
+		".htm",
+		".html",
+		".css",
+		".js",
+		".txt",
+		".scss",
+		".sass",
+	}
+
+	err := filepath.Walk(".",
+    func(path string, info os.FileInfo, err error) error {
+    if err != nil {
+        return err
+    }
+		for _, ext := range fileExtensions {
+			if strings.LastIndex(path, ext) != -1 {
+    		fileNames = append(fileNames, path)
+				break
+			}
+		}
+		return nil
+	})
+
+	if err != nil {
+	    log.Println(err)
+	}
+
+	return
+}
+
+// TODO
+// Will react to ajax request saving (and loading?) files to edit
+func Submit(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		return
+	}
+	r.ParseForm()
+
+	if r.FormValue("ajax") == "" {
+		return
+	}
+
+
 }
