@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"html/template"
-	"log"
+	//"log"
 	"strconv"
 	"net/http"
 	"os"
@@ -11,6 +11,13 @@ import (
 	"strings"
 	"io/ioutil"
 	_ "github.com/lib/pq"
+    "cloud.google.com/go/storage"
+    _ "golang.org/x/net/context"
+    _ "google.golang.org/api/iterator"
+    "google.golang.org/appengine"
+    "google.golang.org/appengine/file"
+    "google.golang.org/appengine/log"
+
 )
 
 //Edit allows me to edit slides, preventing the need for me to
@@ -69,11 +76,11 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 
 	t, err := template.ParseFiles("header.html", "edit.html") //parse the html file
 	if err != nil {                                               // if there is an error
-		log.Print("template parsing error: ", err) // log it
+		//log.Print("template parsing error: ", err) // log it
 	}
 	err = t.ExecuteTemplate(w, "edit", EditVars) //execute the template and pass it the struct
 	if err != nil {                                    // if there is an error
-		log.Print("template executing error: ", err) //log it
+		//log.Print("template executing error: ", err) //log it
 	}
 }
 
@@ -106,7 +113,7 @@ func createSlide(r *http.Request) (bool) {
     stmt := `INSERT INTO ` + r.FormValue("table") + ` VALUES ($1, $2, $3, $4)`;
     _, err = db.Exec(stmt, r.FormValue("name"), r.FormValue("date"), r.FormValue("body"), int16(disp_order))
     if err != nil {
-        log.Print("error creating slide: ", err)
+        //log.Print("error creating slide: ", err)
         return false
     }
     return true;
@@ -139,7 +146,7 @@ func getFiles() (fileNames []string) {
 	})
 
 	if err != nil {
-	    log.Println(err)
+	    //log.Println(err)
 	}
 
 	return
@@ -148,6 +155,7 @@ func getFiles() (fileNames []string) {
 // TODO
 // Will react to ajax request saving (and loading?) files to edit
 func Submit(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method == "GET" {
 		return
 	}
@@ -161,7 +169,7 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 		if r.FormValue("file") != "" {
 			file, err := ioutil.ReadFile(r.FormValue("file"))
 			if err != nil {
-				log.Fatal(err)
+				//log.Fatal(err)
 				return
 			}
 			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -169,10 +177,36 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.FormValue("save") != "" {
 		if r.FormValue("openFileName") != "" {
-			ioutil.WriteFile(r.FormValue("openFileName"), []byte(r.FormValue("openFile")), 0644)
-			w.Write([]byte("success"))
+            if gcloudWrite(r) < 1 {
+    			ioutil.WriteFile(r.FormValue("openFileName"), []byte(r.FormValue("openFile")), 0644)
+            }
+    			w.Write([]byte("success"))
 		}
 	}
-
-
 }
+
+func gcloudWrite(r *http.Request) int {
+    ctx := appengine.NewContext(r)
+    client, err := storage.NewClient(ctx)
+    bucket, err := file.DefaultBucketName(ctx)
+    buck := client.Bucket(bucket)
+    if err != nil {
+        log.Errorf(ctx, "failed to get default GCS bucket name: %v", err)
+        return 0 // not GCloud
+    }
+
+    wc := buck.Object(r.FormValue("openFileName")).NewWriter(ctx)
+    if _, err := wc.Write([]byte("abcde\n")); err != nil {
+        //log.Errorf("createFile: unable to write data to bucket, file %q: %v", r.FormValue("openFileName"), err)
+        return -1
+    }
+
+    if err := wc.Close(); err != nil {
+        //log.Errorf("createFile: unable to close bucket, file %q: %v", r.FormValue("openFileName"), err)
+        return -1
+    }
+
+    return 1
+}
+
+
