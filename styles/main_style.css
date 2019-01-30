@@ -1,7 +1,7 @@
 /**
  * Mobile
  */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 781px) {
     html {
         min-height: 100%;
         overflow: hidden;
@@ -473,7 +473,7 @@
 /**
  * Desktop
  */
-@media only screen and (min-width: 641px) {
+@media only screen and (min-width: 782px) {
     html {
         min-height: 100%;
         overflow: hidden;
@@ -547,11 +547,17 @@
         -ms-transform: translateX(-50%) translateY(-50%);
         -webkit-transform: translate(-50%,-50%);
         transform: translate(-50%,-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    @media only screen and (max-height: 585px) {
+    @media only screen and (max-height: 900px) {
     	.textBlock {
-    		top:42%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+    		/*top:40%;*/
     	}
     }
 
