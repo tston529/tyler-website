@@ -87,7 +87,7 @@ var mux *http.ServeMux
 
 func main() {
     mux = http.NewServeMux()
-    mux.Handle("/submit", http.FileServer(http.Dir("./")))
+    mux.Handle("/submit", http.FileServer(http.Dir(".")))
     
     http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
     http.Handle("/styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("styles"))))

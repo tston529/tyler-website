@@ -11,12 +11,12 @@ import (
 	"strings"
 	"io/ioutil"
 	_ "github.com/lib/pq"
-    "cloud.google.com/go/storage"
+    /*"cloud.google.com/go/storage"
     _ "golang.org/x/net/context"
     _ "google.golang.org/api/iterator"
     "google.golang.org/appengine"
     "google.golang.org/appengine/file"
-    "google.golang.org/appengine/log"
+    "google.golang.org/appengine/log"*/
 
 )
 
@@ -177,15 +177,15 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.FormValue("save") != "" {
 		if r.FormValue("openFileName") != "" {
-            if gcloudWrite(r) < 1 {
+            //if gcloudWrite(r) < 1 || r := recover(); r != nil {
     			ioutil.WriteFile(r.FormValue("openFileName"), []byte(r.FormValue("openFile")), 0644)
-            }
-    			w.Write([]byte("success"))
+            //}
+			w.Write([]byte("success"))
 		}
 	}
 }
 
-func gcloudWrite(r *http.Request) int {
+/*func gcloudWrite(r *http.Request) int {
     ctx := appengine.NewContext(r)
     client, err := storage.NewClient(ctx)
     bucket, err := file.DefaultBucketName(ctx)
@@ -196,7 +196,7 @@ func gcloudWrite(r *http.Request) int {
     }
 
     wc := buck.Object(r.FormValue("openFileName")).NewWriter(ctx)
-    if _, err := wc.Write([]byte("abcde\n")); err != nil {
+    if _, err := wc.Write([]byte(r.FormValue("openFile"))); err != nil {
         //log.Errorf("createFile: unable to write data to bucket, file %q: %v", r.FormValue("openFileName"), err)
         return -1
     }
@@ -207,6 +207,6 @@ func gcloudWrite(r *http.Request) int {
     }
 
     return 1
-}
+}*/
 
 

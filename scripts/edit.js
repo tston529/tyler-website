@@ -79,6 +79,8 @@ $(document).ready(function(){
     $('.file').click(function (e) {
         e.preventDefault();
         var filename = $(this).attr("href");
+        $('.editing').removeClass("editing");
+        $(this).addClass("editing");
         $.ajax({
             url: 'submit',
             type: 'post',
