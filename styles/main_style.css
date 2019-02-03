@@ -541,7 +541,7 @@
         position: absolute;
         max-height: 80%;
         margin: auto;
-        top:52%;
+        top:42%;
         left:42%;
         padding:15px;
         -ms-transform: translateX(-50%) translateY(-50%);
@@ -552,20 +552,15 @@
         justify-content: center;
     }
 
-    @media only screen and (max-height: 900px) {
-    	.textBlock {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-    		/*top:40%;*/
-    	}
-    }
 
     .job h1 {
 		font-family: "Raleway", sans-serif;
 		font-weight: lighter;
 		font-size: 2.5em;
 		color: white;
+		display: flex;
+        flex-direction: column;
+        justify-content: center;
 	}
 
 	.job h4 {
@@ -610,10 +605,15 @@
         text-align: left;
     }
 
-    .scrollable {
-	    height: 70vh;
+	.scrollable {
 	    overflow-y: auto;
 	    position:relative;
+	}
+
+    @media only screen and (max-height: 700px) {
+	    .scrollable {
+	    	height: 54vh;
+		}
 	}
 	.scrollable::after {
 	    content:'';

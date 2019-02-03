@@ -2,8 +2,9 @@
 // ( Used in editing slides )
 function toggleEdit(rowId) {
     var slideDiv = document.getElementById(rowId);
-    if(slideDiv.style.display == "none")
+    if(slideDiv.style.display == "none") {
         slideDiv.style.display = "block";
+    }
     else
         slideDiv.style.display = "none";
 }
@@ -32,7 +33,7 @@ function organizeFiles() {
     $files.append(homeDiv);
     $(".home").before($("<button class='HOME' onclick='toggleShowFolder(\"home\");'>[+] home</button>"));
 
-    for (let i = 0; i < names.length; i++) {
+    for (var i = 0; i < names.length; i++) {
         var full_path = $(names[i]).html().split("/");
         full_path.unshift('home');
         var fn = $(full_path).get(-1);
@@ -42,7 +43,7 @@ function organizeFiles() {
                             //   to make the list look more 'tree-like'
 
         // Ensures all "folders" are created
-        for (let j = 1; j < full_path.length; j++) {
+        for (var j = 1; j < full_path.length; j++) {
             indentation += 40;
             // Search for subfolder in current folder
             // Create 'folder' div if not found
@@ -61,8 +62,9 @@ function organizeFiles() {
         // Put the file at the beginning of the files list, not after any
         //  other folders that may have been created in the meantime.
         var $last_a = $("."+full_path.join('')).children("a").nextUntil("button");
-        if ($last_a.length)
+        if ($last_a.length){
             $last_a.parent().prepend($(names[i])).prepend("<br>");
+        }
         else
             $("."+full_path.join('')).append($(names[i])).append("<br>");
     }

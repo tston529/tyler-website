@@ -53,13 +53,15 @@ async function main(c, ctx, m, xCoords, yCoords) {
         ctx.clearRect(0, 0, c.width, c.height);
         drawLines(ctx, m, xCoords, yCoords);
         for (var j = 0; j < 20; j++) {
-            if (xCoords[j] > 10 && xCoords[j] < c.width / 2)
+            if (xCoords[j] > 10 && xCoords[j] < c.width / 2){
                 xCoords[j] -= Math.random() * accelSpeed + 0.5;
+            }
             else if (xCoords[j] < c.width - 20 && xCoords[j] > c.width / 2) {
                 xCoords[j] += Math.random() * accelSpeed + 0.5;
             }
-            if (yCoords[j] > 20 && yCoords[j] < c.height / 2)
+            if (yCoords[j] > 20 && yCoords[j] < c.height / 2){
                 yCoords[j] -= Math.random() * accelSpeed + 0.5;
+            }
             else if (yCoords[j] < c.height - 20 && yCoords[j] > c.height / 2) {
                 yCoords[j] += Math.random() * accelSpeed + 0.5;
             }
