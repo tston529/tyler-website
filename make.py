@@ -25,14 +25,16 @@ def minify_request(base_filename, directory):
 	else:
 		return False
 
+def purge_min(directory):
+    files = os.listdir(directory)
+    for file in files:
+        if ".min." in file:
+            print("Removing old copy of " + directory+"/"+file)
+            os.remove(directory+"/"+file)
 
 def minify():
     for d in dirs:
-        files = os.listdir(d)
-        for file in files:
-            if ".min." in file:
-                print("Removing old copy of " + d+"/"+file)
-                os.remove(d+"/"+file)
+        purge_min(d)
         files = os.listdir(d)
         for file in files:
             fn = file.split(".")
@@ -43,7 +45,9 @@ def git():
         os.system("git stage .")
         print("Staged all changes.")
         os.system("git commit")
-        os.system("echo hello world")
+        inp = input("Would you like to push? (Y/n): ")
+        if inp.lower() == 'y':
+            os.system("git push")
 
 def main():
     do_git = False
