@@ -1,6 +1,7 @@
-from css_html_js_minify import process_single_js_file, process_single_css_file
 import os
+import sys
 from rjsmin import jsmin
+from css_html_js_minify import process_single_js_file, process_single_css_file
 
 dirs = ["./scripts", "./styles"]
 
@@ -24,13 +25,34 @@ def minify_request(base_filename, directory):
 	else:
 		return False
 
-for d in dirs:
-	files = os.listdir(d)
-	for file in files:
-		if ".min." in file:
-			print("Removing old copy of " + d+"/"+file)
-			os.remove(d+"/"+file)
-	files = os.listdir(d)
-	for file in files:
-		fn = file.split(".")
-		minify_request(file, d)
+
+def minify():
+    for d in dirs:
+        files = os.listdir(d)
+        for file in files:
+            if ".min." in file:
+                print("Removing old copy of " + d+"/"+file)
+                os.remove(d+"/"+file)
+        files = os.listdir(d)
+        for file in files:
+            fn = file.split(".")
+            minify_request(file, d)
+
+def git():
+        print("Calling 'git stage .'")
+        os.system("git stage .")
+        print("Staged all changes.")
+        os.system("git commit")
+        os.system("echo hello world")
+
+def main():
+    do_git = False
+    if len(sys.argv) > 1:
+        do_git = True if sys.argv[1] == "push" else False
+
+    minify()
+    if do_git:
+        git()
+
+if __name__ == "__main__":
+    main()
