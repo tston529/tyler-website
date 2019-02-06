@@ -44,15 +44,23 @@ def git():
         print("Calling 'git stage .'")
         os.system("git stage .")
         print("Staged all changes.")
-        os.system("git commit")
-        inp = input("Would you like to push? (Y/n): ")
-        if inp.lower() == 'y':
-            os.system("git push")
+        err = os.system("git commit")
+        #print("err:" + str(err))
+        if err != 256:
+            inp = input("Would you like to push? (Y/n): ")
+            if inp.lower() == 'y':
+                os.system("git push")
+        else:
+            print("Ignoring commit/push due to empty error message.")
 
 def main():
     do_git = False
-    if len(sys.argv) > 1:
-        do_git = True if sys.argv[1] == "push" else False
+    keywords = ["git", "commit", "push"]
+    if len(sys.argv) > 2:
+        print("This script only takes 1 argument, just say one word\nrelated to pushing on git.")
+        exit(1)
+    if len(sys.argv) == 2:
+        do_git = True if sys.argv[1] in keywords else False
 
     minify()
     if do_git:
