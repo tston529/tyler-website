@@ -1,5 +1,5 @@
 var numStories=0;
-$(document).ready(function (){
+$(document).ready(function () {
     $(".textBlock").each(function(){
         if(numStories > 0) {
             $(this).hide();
@@ -7,11 +7,13 @@ $(document).ready(function (){
         $(this).attr('id', numStories);
         numStories++;
     });
+    $("#previous").hide();
 })
 
-$('#next').click(function(){
+$('#next').click(function() {
+    $("#previous").show("fast");
     var found = 0;
-    $(".textBlock").each(function(){
+    $(".textBlock").each(function() {
         if (found == 1) {
             found++;
             $(this).addClass("current");
@@ -23,9 +25,14 @@ $('#next').click(function(){
             found++;
         }
     })
+    //console.log($(".current").first().attr('id') + " " + $(".textBlock").last().attr('id'));
+    if ($(".current").first().attr('id') === $(".textBlock").last().attr('id')) {
+        $("#next").hide("fast");
+    }
 })
 
 $('#previous').click(function () {
+    $("#next").show("fast");
     var found = 0;
     $($(".textBlock").get().reverse()).each(function () {
         if (found == 1) {
@@ -39,4 +46,8 @@ $('#previous').click(function () {
             found++;
         }
     })
+    //console.log($(this).attr('id') + " " + $(".textBlock").first().attr('id'));
+    if ($(".current").first().attr('id') === $(".textBlock").first().attr('id')) {
+        $("#previous").hide("fast");
+    }
 })

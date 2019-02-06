@@ -1,7 +1,7 @@
 import os
 import sys
 from rjsmin import jsmin
-from css_html_js_minify import process_single_js_file, process_single_css_file
+from css_html_js_minify import process_single_css_file
 
 dirs = ["./scripts", "./styles"]
 
